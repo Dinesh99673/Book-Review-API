@@ -1,44 +1,19 @@
-import express from "express";
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken"; 
+import express from 'express';
+import dotenv from 'dotenv';
+import authRoutes from './Routes/authRoutes.js';
+import bookRoutes from './Routes/bookRoutes.js';
+import reviewRoutes from './Routes/reviewRoutes.js';
 
-dotenv.config()
-const app = express()
-app.use(express.json()); // same as bodyParser.json()
-app.use(express.urlencoded({ extended: true }));
-const PORT = process.env.PORT || 3000;
+dotenv.config();
 
+const app = express();
+app.use(express.json());
 
-app.get("/",(req, res)=>{
-    res.send("Hello on the / starting endpoint")
-})
+// Route handling
+app.use('/auth', authRoutes);      // Signup & login
+app.use('/books', bookRoutes);     // Book-related endpoints
+app.use('/reviews', reviewRoutes); // Review-related endpoints
+app.use('/search', bookRoutes);    // Book search handled in bookRoutes
 
-
-
-app.post("/generate-token", (req, res) => {
-    const jwtSecretKey = process.env.JWT_SECRET_KEY;
-    const data = {
-        userId: 19,
-    };
-    const token = jwt.sign(data, jwtSecretKey);
-    res.send({ token });
-});
-
-
-app.post("/verify-user", (req, res) => {
-    const authHeader = req.header(process.env.TOKEN_HEADER_KEY); // e.g., "Authorization"
-    const token = authHeader.split(" ")[1];
-    const jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-    try {
-        const verified = jwt.verify(token, jwtSecretKey);        
-        res.send({login:true, decode:verified});
-    } catch (error) {
-        res.status(401).send("Invalid Token");
-    }
-});
-
-
-app.listen(PORT,()=>{
-    console.log(`Server Running on port ${PORT}.`);
-})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
