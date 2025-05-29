@@ -91,38 +91,16 @@ You can use **Postman** to test the API. Below are example requests.
 
 ### 4. Search Books
 - **Endpoint:** `GET /books`
-- **Body (JSON):** *(use query parameters if you extend API, here you send filters in body)*
+- **Body (JSON):** *(All the parameters are optional.)* 
 ```json
 {
-  "title": "It Ends With Us",//Optional
-  "author": "Collen Hover",//Optional
-  "genre": "Romantic",//Optional
-  "page": 1 //Optional (default page = 1)
+  "title": "It Ends With Us",
+  "author": "Collen Hover",
+  "genre": "Romantic",
+  "page": 1
 }
 ```
-
-### 5. Add a Review
-- **Endpoint:** `POST /books/:id/review` 
-- **Headers:** `Authorization: Bearer <JWT_TOKEN>`
-- **Body (JSON):**
-```json
-{
-  "rating": 4.9,
-  "comment": "Good story line"
-}
-```
-
-### 6. Update a Review
-- **Endpoint:** `PUT /reviews/:id` 
-- **Headers:** `Authorization: Bearer <JWT_TOKEN>`
-- **Body (JSON):**
-```json
-{
-  "rating": 3.6,
-  "comment": "Good story"
-}
-```
-### 2. Login
+### 5. Search Books
 - **Endpoint:** `GET /books`
 - **Body (JSON):**
 ```json
@@ -149,7 +127,27 @@ You can use **Postman** to test the API. Below are example requests.
     }
 ]
 ```
+### 6. Add a Review
+- **Endpoint:** `POST /books/:id/review` 
+- **Headers:** `Authorization: Bearer <JWT_TOKEN>`
+- **Body (JSON):**
+```json
+{
+  "rating": 4.9,
+  "comment": "Good story line"
+}
+```
 
+### 7. Update a Review
+- **Endpoint:** `PUT /reviews/:id` 
+- **Headers:** `Authorization: Bearer <JWT_TOKEN>`
+- **Body (JSON):**
+```json
+{
+  "rating": 3.6,
+  "comment": "Good story"
+}
+```
 ---
 
 ## Design Decisions and Assumptions
